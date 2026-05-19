@@ -92,10 +92,6 @@ def BFS(initial_state, target_state):
         for next_move in get_possible_moves(zero_pos):
 
             child_state = apply_move(node.state, zero_pos, next_move)
-
-            if child_state == target_state:
-                return get_solution(child_node)
-
             if child_state in explored or child_state in frontier_states:
                 continue
 
@@ -111,7 +107,15 @@ def BFS(initial_state, target_state):
                 node.cost + 1
             )
 
+            if child_state == target_state:
+                return get_solution(child_node)
+
             frontier.put(child_node)
             frontier_states.add(child_state)
 
     return None
+
+target_state = [1, 2, 3, 4, 5, 6, 7, 8, 0]
+start_state = [1, 2, 3, 4, 5, 6, 0, 7, 8]
+
+print(BFS(start_state, target_state))
