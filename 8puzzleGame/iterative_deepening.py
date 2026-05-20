@@ -9,8 +9,3 @@ def IDDFS(initial_state: list, target_state: list) -> list:
         depth += 1
     
     return result
-
-# start_state = [1, 2, 3, 4, 5, 6, 0, 7, 8]
-# target_state = [1, 2, 3, 4, 5, 6, 7, 8, 0]
-
-# print(iterative_deepening(start_state, target_state))
