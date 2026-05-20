@@ -49,8 +49,3 @@ def DFS(initial_state: list, target_state: list) -> list:
             frontier_states.add(child_state)
 
     return None
-
-start_state = [1, 2, 3, 4, 5, 6, 0, 7, 8]
-target_state = [1, 2, 3, 4, 5, 6, 7, 8, 0]
-
-print(DFS(start_state, target_state))
