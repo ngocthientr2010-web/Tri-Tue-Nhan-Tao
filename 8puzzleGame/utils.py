@@ -1,0 +1,63 @@
+class Node:
+    def __init__(self, state, parent=None, move=None, cost=0):
+        self.state = state
+        self.parent = parent
+        self.move = move
+        self.cost = cost
+
+def apply_move(state, curr_zero_pos, new_zero_pos) -> str:
+    state = list(state)
+
+    state[curr_zero_pos], state[new_zero_pos] = state[new_zero_pos], state[curr_zero_pos]
+
+    return ''.join(state)
+
+DIR = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+
+def get_possible_moves(zero_pos) -> list:
+    moves = []
+
+    x = zero_pos // 3 
+    y = zero_pos % 3
+    for r, c in DIR:
+        new_x, new_y = x + r, y + c
+        if 0 <= new_x < 3 and 0 <= new_y < 3:
+            new_zero_pos = new_x * 3 + new_y
+            moves.append(new_zero_pos)
+
+    return moves
+
+# Get the move name based on the old and new position of the zero tile (0-8: board is fattened) 
+def get_move_name(old_pos, new_pos) -> str:
+
+    diff = new_pos - old_pos
+
+    if diff == -3:
+        return "UP"
+
+    if diff == 3:
+        return "DOWN"
+
+    if diff == -1:
+        return "LEFT"
+
+    if diff == 1:
+        return "RIGHT"
+
+
+def get_solution(node) -> list:
+
+    path = []
+
+    while node.parent is not None:
+
+        path.append(node.move)
+
+        node = node.parent
+
+    path.reverse()
+
+    return path
+
+def board_to_string(board):
+    return ''.join(str(num) for num in board)

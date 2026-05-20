@@ -1,24 +1,23 @@
 from utils import *
-import queue
+from collections import deque
 
-def BFS(initial_state: list, target_state: list) -> list:
-
+def DFS(initial_state: list, target_state: list) -> list:
     if initial_state == target_state:
         return []
 
     initial_state = board_to_string(initial_state)
     target_state = board_to_string(target_state)
 
-    frontier = queue.Queue()
+    frontier = deque()
     explored = set()
     frontier_states = set()
 
     start_node = Node(initial_state)
-    frontier.put(start_node)
+    frontier.append(start_node)
     frontier_states.add(initial_state)
 
-    while not frontier.empty():
-        node = frontier.get()
+    while frontier:
+        node = frontier.pop()
 
         frontier_states.remove(node.state)
         explored.add(node.state)
@@ -46,8 +45,12 @@ def BFS(initial_state: list, target_state: list) -> list:
             if child_state == target_state:
                 return get_solution(child_node)
 
-            frontier.put(child_node)
+            frontier.append(child_node)
             frontier_states.add(child_state)
 
     return None
 
+start_state = [1, 2, 3, 4, 5, 6, 0, 7, 8]
+target_state = [1, 2, 3, 4, 5, 6, 7, 8, 0]
+
+print(DFS(start_state, target_state))
